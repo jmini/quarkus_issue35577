@@ -15,6 +15,15 @@ dependencies {
     implementation project(':core-lib')
 }
 
+tasks.register('printInfo') {
+    doLast {
+        def extension = project.getExtensions().findByType(JavaPluginExtension.class)
+        def mainSourceSet = extension.getSourceSets().getByName("main")
+        // println(mainSourceSet.getCompileClasspath().getAsPath())
+        println(mainSourceSet.getOutput().getAsPath())
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17

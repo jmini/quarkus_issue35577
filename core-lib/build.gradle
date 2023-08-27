@@ -18,6 +18,15 @@ dependencies {
     implementation 'io.quarkus:quarkus-arc'
 }
 
+tasks.register('printInfo') {
+    doLast {
+        def extension = project.getExtensions().findByType(JavaPluginExtension.class)
+        def mainSourceSet = extension.getSourceSets().getByName("main")
+        //println(mainSourceSet.getCompileClasspath().getAsPath())
+        println(mainSourceSet.getOutput().getFiles())
+    }
+}
+
 tasks.named("quarkusDependenciesBuild") {
     inputs.files(tasks.getByPath(":core-lib:jandex").outputs.files)
 }
