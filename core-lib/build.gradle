@@ -18,7 +18,17 @@ dependencies {
     implementation 'io.quarkus:quarkus-arc'
 }
 
+def copyReportKtClassesTask = tasks.register('copyReportKtClasses', Copy) {
+    from 'build/classes/kotlin/'
+    into 'build/classes/java/'
+}
+
+jar {
+   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}
+
 tasks.named("quarkusDependenciesBuild") {
+    dependsOn copyReportKtClassesTask
     inputs.files(tasks.getByPath(":core-lib:jandex").outputs.files)
 }
 tasks.named("quarkusGenerateCodeTests") {
