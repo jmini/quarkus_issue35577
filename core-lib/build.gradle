@@ -6,6 +6,17 @@ plugins {
     id 'org.kordamp.gradle.jandex' version '1.1.0'
 }
 
+tasks.register('printInfo1') {
+    doLast {
+        println(project.getTasksByName("compileKotlin", false).iterator().next().getClass())
+        println(project.getTasksByName("compileKotlin", false).iterator().next() instanceof org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile)
+        println(project.getTasksByName("compileKotlin", false).iterator().next() instanceof org.jetbrains.kotlin.gradle.tasks.KotlinCompile)
+        println(project.getTasks().withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile.class).size())
+        println(project.getTasks().withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).size())
+        println(project.getTasks().getByName("compileKotlin").getClass())
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()

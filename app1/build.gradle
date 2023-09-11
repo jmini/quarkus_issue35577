@@ -1,6 +1,19 @@
 plugins {
+    id 'org.jetbrains.kotlin.jvm' version "1.9.10"
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.9.10"
     id 'java'
     id 'io.quarkus'
+}
+
+tasks.register('printInfo2') {
+    doLast {
+        println(project(':core-lib').getTasksByName("compileKotlin", false).iterator().next().getClass())
+        println(project(':core-lib').getTasksByName("compileKotlin", false).iterator().next() instanceof org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile)
+        println(project(':core-lib').getTasksByName("compileKotlin", false).iterator().next() instanceof org.jetbrains.kotlin.gradle.tasks.KotlinCompile)
+        println(project(':core-lib').getTasks().withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile.class).size())
+        println(project(':core-lib').getTasks().withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).size())
+        println(project(':core-lib').getTasks().getByName("compileKotlin").getClass())
+    }
 }
 
 repositories {
