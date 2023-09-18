@@ -16,6 +16,31 @@ tasks.register('printInfo2') {
     }
 }
 
+tasks.register('printInfo') {
+    doLast {
+        def mainSourceSet = project(':core-lib').sourceSets.main
+        //def mainSourceSet = sourceSets.main
+        println(mainSourceSet)
+
+        println("all sources srcDirs: ")
+        mainSourceSet.getAllSource().getSrcDirs().each {
+            println("- " + it.getAbsolutePath().substring(project.getRootProject().getProjectDir().getAbsolutePath().length() + 1))
+        }
+        println("resources srcDirs: ")
+        mainSourceSet.getResources().getSrcDirs().each {
+            println("- " + it.getAbsolutePath().substring(project.getRootProject().getProjectDir().getAbsolutePath().length() + 1))
+        }
+        println("ouput ClassesDir: ")
+        mainSourceSet.getOutput().getClassesDirs().each {
+            println("- " + it.getAbsolutePath().substring(project.getRootProject().getProjectDir().getAbsolutePath().length() + 1))
+        }
+        println("ouput ClassesDir builtBy: ")
+        (mainSourceSet.getOutput().getClassesDirs() as org.gradle.api.file.ConfigurableFileCollection).getBuiltBy().each {
+            println("- " + it.get())
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
